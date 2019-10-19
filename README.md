@@ -2,8 +2,7 @@ Ez egy projekt a Miktroelektromechanikai rendszerek órára.
 A projektet Hingyi Martin (CGH096) és Lengyel Márk (LNXQYO) készítette.
 A projekt magába foglal egy raspberry pi alapú játékkonzolt, amelyen egy saját készítésű tetris játék játszható.
 
-magyarázat:
-Markup :
+Magyarázat:
   * /tetris_pi - a tetris játék kódja és fordítási parancsai
     * /tetris_pi/code - a játék kódja (c++)
     * /tetris_pi/compile.sh - linux környezetben való fordításhoz és teszteléshez
