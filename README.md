@@ -13,7 +13,7 @@ magyarázat:
 
 /boot/config.txt - módosított raspberry konfigurációs fájl
 /boot/cmdline.txt - módosított raspberry fájl
-  
+
 /.bashrc - módosított raspberry redszerfájl, amely lehetővé teszi a 'mainscript' fájl futtatását bootolás után
 /mainscript - egy script amely lefut közvetlenül indítás után
 
