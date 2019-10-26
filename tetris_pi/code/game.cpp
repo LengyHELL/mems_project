@@ -366,9 +366,11 @@ void Game::render(Screen scr, Textures tex) {
 	clear_pixels(scr, 0xD3D3D300);
 
 	//current_block start
+	double sm_h_dir = ((sm_h_counter * (tex.cube_size / 16)) * sm_h_mov) - (current_block.center_x * tex.cube_size);
+	double sm_v_dir = ((sm_v_counter * (tex.cube_size / 16)) * sm_v_mov) - ((current_block.center_y - 5) * tex.cube_size);
 
 	for (int i = 0; i < 8; i += 2) {
-		draw_cube_s(scr, tex, tex.def_cube_type, ((current_block.center_x + current_block.parts[i]) * tex.cube_size) - (sm_h_counter * sm_h_mov), ((current_block.center_y + current_block.parts[i + 1] - 5) * tex.cube_size) - (sm_v_counter * sm_v_mov), current_block.color);
+		draw_cube_s(scr, tex, tex.def_cube_type, (current_block.parts[i] * tex.cube_size) - sm_h_dir, (current_block.parts[i + 1] * tex.cube_size) - sm_v_dir, current_block.color);
 	}
 
 	sm_v_counter -= v_smoothing;

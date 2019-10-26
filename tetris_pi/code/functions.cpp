@@ -43,31 +43,35 @@ void draw_cube(Screen scr, Textures tex, int type, int x_pos, int y_pos, uint32_
 	int y = y_pos * tex.cube_size;
 	double cube_scale = double(tex.def_cube_size) / double(tex.cube_size);
 
+	std::string tempTex;
+	uint32_t shaded_color = color;
+	if (type == 0) {
+		tempTex = tex.def_cube;
+
+		int temp_c[3];
+		temp_c[0] = shaded_color / 0x01000000;
+		shaded_color -= 0x01000000 * Uint32(temp_c[0]);
+		temp_c[1] = shaded_color / 0x00010000;
+		shaded_color -= 0x00010000 * Uint32(temp_c[1]);
+		temp_c[2] = shaded_color / 0x00000100;
+
+		for (int k = 0; k < 3; k++) {
+			temp_c[k] -= 50;
+			if (temp_c[k] < 0) { temp_c[k] = 0; }
+		}
+
+		shaded_color = (0x01000000 * Uint32(temp_c[0])) + (0x00010000 * Uint32(temp_c[1])) + (0x00000100 * Uint32(temp_c[2]));
+	}
+	else if (type == 1) {
+		tempTex = tex.plain_cube;
+	}
+
 	for (int i = 0; i < tex.cube_size; i++) {
 		for (int j = 0; j < tex.cube_size; j++) {
-			if (type == 0) {
-				if (tex.def_cube[int(i * cube_scale) * tex.def_cube_size + int(j * cube_scale)] == '1') {
-					int temp_c[3];
-					uint32_t temp_color = color;
-					temp_c[0] = temp_color / 0x01000000;
-					temp_color -= 0x01000000 * Uint32(temp_c[0]);
-					temp_c[1] = temp_color / 0x00010000;
-					temp_color -= 0x00010000 * Uint32(temp_c[1]);
-					temp_c[2] = temp_color / 0x00000100;
-
-					for (int k = 0; k < 3; k++) {
-						temp_c[k] -= 50;
-						if (temp_c[k] < 0) { temp_c[k] = 0; }
-					}
-
-					temp_color = (0x01000000 * Uint32(temp_c[0])) + (0x00010000 * Uint32(temp_c[1])) + (0x00000100 * Uint32(temp_c[2]));
-					draw_pixel(scr, x + j, y + i, temp_color);
-				}
-				else {
-					draw_pixel(scr, x + j, y + i, color);
-				}
+			if (tempTex[int(i * cube_scale) * tex.def_cube_size + int(j * cube_scale)] == '1') {
+				draw_pixel(scr, x + j, y + i, shaded_color);
 			}
-			else if (type == 1) {
+			else {
 				draw_pixel(scr, x + j, y + i, color);
 			}
 		}
@@ -77,31 +81,35 @@ void draw_cube(Screen scr, Textures tex, int type, int x_pos, int y_pos, uint32_
 void draw_cube_s(Screen scr, Textures tex, int type, int x, int y, uint32_t color) {
 	double cube_scale = double(tex.def_cube_size) / double(tex.cube_size);
 
+	std::string tempTex;
+	uint32_t shaded_color = color;
+	if (type == 0) {
+		tempTex = tex.def_cube;
+
+		int temp_c[3];
+		temp_c[0] = shaded_color / 0x01000000;
+		shaded_color -= 0x01000000 * Uint32(temp_c[0]);
+		temp_c[1] = shaded_color / 0x00010000;
+		shaded_color -= 0x00010000 * Uint32(temp_c[1]);
+		temp_c[2] = shaded_color / 0x00000100;
+
+		for (int k = 0; k < 3; k++) {
+			temp_c[k] -= 50;
+			if (temp_c[k] < 0) { temp_c[k] = 0; }
+		}
+
+		shaded_color = (0x01000000 * Uint32(temp_c[0])) + (0x00010000 * Uint32(temp_c[1])) + (0x00000100 * Uint32(temp_c[2]));
+	}
+	else if (type == 1) {
+		tempTex = tex.plain_cube;
+	}
+
 	for (int i = 0; i < tex.cube_size; i++) {
 		for (int j = 0; j < tex.cube_size; j++) {
-			if (type == 0) {
-				if (tex.def_cube[int(i * cube_scale) * tex.def_cube_size + int(j * cube_scale)] == '1') {
-					int temp_c[3];
-					uint32_t temp_color = color;
-					temp_c[0] = temp_color / 0x01000000;
-					temp_color -= 0x01000000 * Uint32(temp_c[0]);
-					temp_c[1] = temp_color / 0x00010000;
-					temp_color -= 0x00010000 * Uint32(temp_c[1]);
-					temp_c[2] = temp_color / 0x00000100;
-
-					for (int k = 0; k < 3; k++) {
-						temp_c[k] -= 50;
-						if (temp_c[k] < 0) { temp_c[k] = 0; }
-					}
-
-					temp_color = (0x01000000 * Uint32(temp_c[0])) + (0x00010000 * Uint32(temp_c[1])) + (0x00000100 * Uint32(temp_c[2]));
-					draw_pixel(scr, x + j, y + i, temp_color);
-				}
-				else {
-					draw_pixel(scr, x + j, y + i, color);
-				}
+			if (tempTex[int(i * cube_scale) * tex.def_cube_size + int(j * cube_scale)] == '1') {
+				draw_pixel(scr, x + j, y + i, shaded_color);
 			}
-			else if (type == 1) {
+			else {
 				draw_pixel(scr, x + j, y + i, color);
 			}
 		}
