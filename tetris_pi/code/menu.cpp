@@ -88,7 +88,7 @@ void Menu::set_stat(Screen scr, Textures tex, int stats[], int stats_size) {
 	options.push_back(MenuPoint("Back", false, true));
 
 	extra_lines.push_back(ExtraLine("Best score:", 0xff000000, true, stats[0], 15, false));
-	extra_lines.push_back(ExtraLine("Time played:", 0x0000ff00, true, stats[1] / 60, 15, false, 0x00000000, " minutes"));
+	extra_lines.push_back(ExtraLine("Time played:", 0x0000ff00, true, stats[1] / 60, 15, false, 0x00000000, " m"));
 	extra_lines.push_back(ExtraLine("Games played:", 0x00000000, true, stats[2], 15, false));
 	if (stats[3] > 0) { extra_lines.push_back(ExtraLine("Total yellows:", 0xdddd0000, true, stats[3], 15, true, 0x00000000)); }
 	if (stats[4] > 0) { extra_lines.push_back(ExtraLine("Total blues:", 0x00dddd00, true, stats[4], 15, true, 0x00000000)); }
@@ -176,7 +176,6 @@ void Menu::set_sum(Screen scr, Textures tex, Game game) {
 	options.push_back(MenuPoint("Return to Main Menu", false, true));
 
 	extra_lines.push_back(ExtraLine("Score:", 0xff000000, true, game.score, 11, false));
-	extra_lines.push_back(ExtraLine("Game time:", 0x0000ff00, true, (game.length_timer / 1000) / 60, 11, false, 0x00000000, " minutes"));
 
 	if (game.score >= 6000) { extra_lines.push_back(ExtraLine("Unbeliveable score", 0x00000000)); }
 	else if (game.score >= 4000) { extra_lines.push_back(ExtraLine("Excellent score", 0x00000000)); }

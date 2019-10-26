@@ -64,7 +64,7 @@ void Game::set_normal(int smooth_option, bool s_fps) {
 	prev_stage;
 	stage_size = 100;
 
-	enable_esc = true;
+	enable_esc = false;
 
 	length_timer = 0;
 
@@ -89,12 +89,12 @@ void Game::update(const Uint8* state, int test_delay) {
 	act_fps_timer += test_delay;
 	if (act_fps_timer >= 1000) { act_fps = act_fps_count; act_fps_count = 0; act_fps_timer = 0; }
 
-	if (state[SDL_SCANCODE_ESCAPE] && enable_esc) {
+	if (state[SDL_SCANCODE_RETURN] && enable_esc) {
 		bool temp_stall = true;
 		enable_esc = false;
 		pause = true;
 	}
-	if (!state[SDL_SCANCODE_ESCAPE]) { enable_esc = true; }
+	if (!state[SDL_SCANCODE_RETURN]) { enable_esc = true; }
 
 	if (state[SDL_SCANCODE_UP] && !rotate_stall) {
 		rotate_stall = true;
@@ -385,7 +385,7 @@ void Game::render(Screen scr, Textures tex) {
 	}
 	for (int i = scr.width / 2; i < scr.width; i++) {
 		for (int j = 0; j < scr.height; j++) {
-			if (i < (scr.width / 2) + (tex.cube_size / 16)) { draw_pixel(scr, i, j, 0x00000000); }
+			if (i < (scr.width / 2) + (tex.cube_size / 12)) { draw_pixel(scr, i, j, 0x00000000); }
 			else { draw_pixel(scr, i, j, 0xC0C0C000); }
 		}
 	}
@@ -394,19 +394,25 @@ void Game::render(Screen scr, Textures tex) {
 			draw_cube(scr, tex, 1, i, j, 0x00000000);
 		}
 	}
+	for (int i = 0; i < scr.width; ++i) {
+		for (int j = scr.width; j < scr.height; ++j) {
+			if ((j < scr.width + (tex.cube_size / 12)) && (i < (scr.width / 2) + (tex.cube_size / 12))) { draw_pixel(scr, i, j, 0x00000000); }
+			else { draw_pixel(scr, i, j, 0xC0C0C000); }
+		}
+	}
 
 	Block temp_out_block = next_block;
 	temp_out_block.set_block(-2, -2, -2, -2, true, -1 * temp_out_block.rotation);
 	for (int i = 0; i < 8; i += 2) {
 		draw_cube(scr, tex, tex.def_cube_type, temp_out_block.parts[i] + 14, temp_out_block.parts[i + 1] + 5, 0x80808000);
 	}
-	draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 2), tex.cube_size * 1.5, "Comin up next:", 0x00000000, false);
-	draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 2), tex.cube_size * 8, "Score: " + std::to_string(score), 0x00000000, false);
-	draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 2), tex.cube_size * 9.5, "Stage: " + std::to_string(stage), 0x00000000, false);
+	draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 2), tex.cube_size * 1.5, "Next:", 0x00000000, false);
+	draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 0.5), tex.cube_size * 8, "Score: " + std::to_string(score), 0x00000000, false);
+	draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 0.5), tex.cube_size * 9.5, "Stage: " + std::to_string(stage), 0x00000000, false);
 	if (stage >= 15) {
-		draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 2), tex.cube_size * 11, "Oh BOY!", 0x00000000, false);
+		draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 0.5), tex.cube_size * 11, "Oh BOY!", 0x00000000, false);
 	}
 	if (show_fps == 1) {
-		draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 2), tex.cube_size * 12.5, "FPS: " + std::to_string(act_fps), 0x00000000, false);
+		draw_text(scr, tex, (scr.width / 2) + (tex.cube_size * 0.5), tex.cube_size * 12.5, "FPS: " + std::to_string(act_fps), 0x00000000, false);
 	}
 }

@@ -48,9 +48,6 @@ int main(int argc, char* args[]) {
 	int show_fps = 0;
 	int auto_login = 0;
 
-	int fix_screen_width = 320;
-	int fix_screen_height = 480;
-
 	load_file.open("config.dat");
 	if (load_file.is_open()) {
 		while (std::getline(load_file, arow)) {
@@ -59,12 +56,13 @@ int main(int argc, char* args[]) {
 			if (aline == 2) { d_textures.cube_size = std::stoi(arow); }
 			if (aline == 3) { smooth_option = std::stoi(arow); }
 			if (aline == 4) { show_fps = std::stoi(arow); }
-			if (aline == 5) { fix_screen_width = std::stoi(arow); }
-			if (aline == 6) { fix_screen_height = std::stoi(arow); }
-			if (aline == 7) { d_textures.def_cube_type = std::stoi(arow); }
+			if (aline == 5) { d_textures.def_cube_type = std::stoi(arow); }
 			aline++;
 		}
 		load_file.close();
+	}
+	else {
+		quit = 1;
 	}
 	//width
 	//height
@@ -73,19 +71,13 @@ int main(int argc, char* args[]) {
 	//show fps
 	//default cube texture
 
-	SDL_Rect fix_screen;
-	fix_screen.x = 0;
-	fix_screen.y = 0;
-	fix_screen.w = d_screen.width;
-	fix_screen.h = d_screen.height;
-
-	d_screen.pixel_buffer = new uint32_t[fix_screen_width * fix_screen_height];
+	d_screen.pixel_buffer = new uint32_t[d_screen.width * d_screen.height];
   SDL_Window* window = NULL;
   SDL_Renderer *renderer;
 	SDL_Texture *screen;
   SDL_Init(SDL_INIT_VIDEO);
-  SDL_CreateWindowAndRenderer(fix_screen_width, fix_screen_height, SDL_WINDOW_SHOWN, &window, &renderer);
-	screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, fix_screen_width, fix_screen_height);
+  SDL_CreateWindowAndRenderer(d_screen.width, d_screen.height, SDL_WINDOW_SHOWN, &window, &renderer);
+	screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, d_screen.width, d_screen.height);
 
 	int test_delay = 0;
 	Uint32 test_tick = 0;
@@ -254,7 +246,7 @@ int main(int argc, char* args[]) {
 			d_menu.render(d_screen, d_textures);
 		}
 
-		SDL_UpdateTexture(screen, &fix_screen, d_screen.pixel_buffer, d_screen.width * sizeof(uint32_t));
+		SDL_UpdateTexture(screen, NULL, d_screen.pixel_buffer, d_screen.width * sizeof(uint32_t));
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, screen, NULL, NULL);
 		SDL_RenderPresent(renderer);
