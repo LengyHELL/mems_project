@@ -1,0 +1,5 @@
+ #!/bin/bash
+echo "started mainscript"
+cd tetris
+./tetris_pi
+shutdown -h now
