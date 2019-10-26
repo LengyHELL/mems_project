@@ -19,3 +19,6 @@ Fájlmagyarázat:
 
 A játék az SDL2 fejlesztői könyvtárat használja, amely az alábbi forrás alapján került telepítésre és beállításra:
 https://gist.github.com/Lokathor/e6fec720b722b8a6f78e399698cae6e4
+
+A képernyő működéséhez szükséges fájlok telepítéséhez:
+https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/easy-install-2
