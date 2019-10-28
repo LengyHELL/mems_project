@@ -4,16 +4,7 @@ A projekt magába foglal egy raspberry pi alapú játékkonzolt, amelyen egy saj
 
 Fájlmagyarázat:
   * /tetris_pi - a tetris játék kódja és fordítási parancsai
-    * /tetris_pi/code - a játék kódja (c++)
-    * /tetris_pi/compile.sh - linux környezetben való fordításhoz és teszteléshez
-    * /tetris_pi/cmp_pi.sh - a raspberry -n való fordításhoz és használathoz
-    * /tetris_pi/config.dat - a játék által használt konfigurációs fájl
-    * /tetris_pi/fonts.dat - a játék által használt betűkészlet fájlja
-    * /tetris_pi/save.dat - a játék statisztikáinak a mentési fájlja
-  * /boot
-    * /boot/config.txt - módosított raspberry konfigurációs fájl
-    * /boot/cmdline.txt - módosított raspberry fájl
-
+  * /boot - raspberry pi rendszerfájlok
   * /.bashrc - módosított raspberry redszerfájl, amely lehetővé teszi a 'mainscript' fájl futtatását bootolás után
   * /mainscript - egy script amely lefut közvetlenül indítás után
 
