@@ -74,7 +74,7 @@ display_hdmi_rotate=1
 dtparam=spi=on
 dtparam=i2c1=on
 dtparam=i2c_arm=on
-dtoverlay=pitft28-capacitive,rotate=90,speed=64000000,fps=30
+dtoverlay=pitft28-resistive,rotate=90,speed=64000000,fps=30
 # --- end adafruit-pitft-helper Mon 21 Oct 15:24:18 BST 2019 ---
 
 dtoverlay=gpio-key,gpio=21,active_low=1,label=GPIO_Enter,keycode=28
